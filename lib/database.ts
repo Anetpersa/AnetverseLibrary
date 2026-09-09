@@ -1,7 +1,7 @@
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
 // Otvara (ili pravi) bazu po imenu "anetverse.db"
-export const db = SQLite.openDatabaseSync('anetverse.db');
+export const db = SQLite.openDatabaseSync("anetverse.db");
 
 // Kreira tabelu "books" ako ne postoji
 export function initDatabase() {
@@ -19,5 +19,12 @@ export function initDatabase() {
 
 // Vraća sve knjige iz baze
 export function getAllBooks() {
-  return db.getAllSync('SELECT * FROM books ORDER BY title ASC');
+  return db.getAllSync("SELECT * FROM books ORDER BY title ASC");
+}
+
+export function addBook(title: string, author: string) {
+  db.runSync("INSERT INTO books (title, author) VALUES (?, ?)", [
+    title,
+    author,
+  ]);
 }
